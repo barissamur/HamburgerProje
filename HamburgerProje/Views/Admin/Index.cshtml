@@ -1,21 +1,103 @@
-﻿@model MenuViewModel
+﻿@model DbViewModel
+@inject UygulamaDbContext db
+<div class="container">
 
-<h1 class="mb-4">Menü Oluştur</h1>
-<form asp-action="MenuEkle" method="post" enctype="multipart/form-data">
-    <div class="mb-2">
-        <label asp-for="Ad">Ad</label>
-        <input type="text" asp-for="Ad" class="form-control" />
-    </div>  
-    <div class="mb-2">
-        <label asp-for="Fiyat">Fiyat</label>
-        <input type="text" asp-for="Fiyat" class="form-control" />
-    </div>
-    <div class="mb-2">
-        <label asp-for="Resim"></label>
-        <input asp-for="Resim" type="file" class="form-control" />
-        <span asp-validation-for="Resim" class="text-danger"></span>
+    <h1>Hamburger Oluştur</h1>
+    <form asp-action="HamburgerEkle" method="post" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label asp-for="HamburgerViewModel.Ad">Ad</label>
+            <input asp-for="HamburgerViewModel.Ad" type="text" class="form-control" />
+            <span asp-validation-for="HamburgerViewModel.Ad"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="HamburgerViewModel.Fiyat">Fiyat</label>
+            <input asp-for="HamburgerViewModel.Fiyat" type="text" class="form-control" />
+            <span asp-validation-for="HamburgerViewModel.Fiyat"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="HamburgerViewModel.Resim"></label>
+            <input asp-for="HamburgerViewModel.Resim" type="file" class="form-control" />
+            <span asp-validation-for="HamburgerViewModel.Resim" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary">Ekle</button>
+    </form>
+
+    <div class="card card-header shadow p-3 mt-2 w-50">
+
+        <h1 class="mb-4">Menü Oluştur</h1>
+        <form asp-action="MenuEkle" method="post" enctype="multipart/form-data">
+            <div class="mb-2">
+                <label asp-for="MenuViewModel.Ad">Ad</label>
+                <input type="text" asp-for="MenuViewModel.Ad" class="form-control" />
+            </div>
+            <div class="mb-2">
+                <label asp-for="MenuViewModel.Fiyat">Fiyat</label>
+                <input type="text" asp-for="MenuViewModel.Fiyat" class="form-control" />
+            </div>
+
+            <h5 class="my-4">Hamburgerler</h5>
+
+            <div id="hmbler"></div>
+
+            <div class="mb-2">
+                <label asp-for="MenuViewModel.Resim"></label>
+                <input asp-for="MenuViewModel.Resim" type="file" class="form-control" />
+                <span asp-validation-for="MenuViewModel.Resim" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary">Ekle</button>
+        </form>
     </div>
 
-    <button class="btn btn-primary">Ekle</button>
-</form>
+</div>
+
+@section Scripts {
+    <script>
+        function hmbEkle(id) {
+            let url = "@Url.Action("MenuyeHamburgerEkle", "Admin")?id=" + id;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    $("#hmbler").html("")
+                    for (const hmb of data) {
+                        $("#hmbler").append(
+                            `  <div class="mb-2">
+                                 <span>
+                                      ${hmb.ad}
+                                    <a class="ms-4">
+                                        <i onclick="hmbEkle('${hmb.id}')" class="btn btn-primary fa-solid fa-plus"></i><i id="hmbCikar" class="btn btn-primary ms-3 fa-solid fa-minus"></i>
+                                    </a>
+                                 </span>
+                                 </div>`
+                        )
+                    }
+                })
+        }
+
+
+
+         let url = "@Url.Action("MenuyeHamburgerEkle", "Admin")";
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    for (const hmb of data) {
+                        $("#hmbler").append(
+                            `  <div class="mb-2">
+                                 <span>
+                                      ${hmb.ad}
+                                    <a class="ms-4">
+                                        <i onclick="hmbEkle('${hmb.id}')" class="btn btn-primary fa-solid fa-plus"></i><i id="hmbCikar" class="btn btn-primary ms-3 fa-solid fa-minus"></i>
+                                    </a>
+                                 </span>
+                                 </div>`
+                        )
+                    }
+                })
+
+
+    </script>
+}
 

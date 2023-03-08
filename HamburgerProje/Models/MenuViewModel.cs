@@ -5,7 +5,7 @@ namespace HamburgerProje.Models
     public class MenuViewModel
     {
         public int Id { get; set; }
-        public string Ad { get; set; } = null!;
+        public string? Ad { get; set; } = null!;
         public double Fiyat { get; set; }
         public int Adet { get; set; }
         public List<Hamburger> Hamburgerler { get; set; } = new();
