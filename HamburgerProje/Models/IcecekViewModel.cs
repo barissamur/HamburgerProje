@@ -9,6 +9,6 @@ namespace HamburgerProje.Models
         public double Fiyat { get; set; }
         public List<Menu> Menuler { get; set; } = new();
         public List<Siparis> Siparisler { get; set; } = new();
-        public IFormFile Resim { get; set; } = null!;
+        public IFormFile? Resim { get; set; } = null!;
     }
 }

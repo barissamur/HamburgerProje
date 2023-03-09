@@ -1,4 +1,6 @@
-﻿namespace HamburgerProje.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HamburgerProje.Data
 {
     public class Menu
     {

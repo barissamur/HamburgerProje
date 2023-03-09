@@ -1,0 +1,101 @@
+﻿@model MenuViewModel
+@inject UygulamaDbContext db
+<div class="container">
+    <div class="card card-header shadow p-3 mt-2">
+
+        <h1 class="mb-4">Menü Oluştur</h1>
+
+        <form asp-action="MenuOlustur" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-route-mId="@Model.Id" class="form-control" />
+            <div class="mb-2">
+                <label asp-for="Ad">Ad</label>
+                <input type="text" asp-for="Ad" class="form-control" required/>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Fiyat">Fiyat</label>
+                <input type="text" asp-for="Fiyat" class="form-control" />
+            </div>
+
+            <div class="row justify-content-around mb-4 mt-4">
+
+                <div class="col-5 border shadow rounded p-3">
+                    <h5 class="mb-4">Hamburgerler</h5>
+
+                    @foreach (var item in db.Hamburgerler)
+                    {
+                        <div class="mb-2 px-2 border rounded d-flex justify-content-end ">
+                            <span class="me-auto">@item.Ad</span>
+                            <a>
+                                @(ViewBag.Menu != null ? ((Menu)ViewBag.Menu).Hamburgerler.Count(x => x.Id == item.Id) : "0")
+                            </a>
+                            <a asp-action="MenuyeHamburgerEkle" asp-route-id="@item.Id" asp-route-menuId="@Model.Id" class="ms-4"><i class="btn btn-primary fa-solid fa-plus"></i></a>
+                            <a><i class="btn btn-primary ms-2 fa-solid fa-minus"></i></a>
+                        </div>
+                    }
+                </div>
+
+
+                <div class="col-5 border shadow rounded p-3">
+                    <h5 class="my-4">İçecekler</h5>
+
+                    @foreach (var item in db.Icecekler)
+                    {
+                        <div class="mb-2 px-2 border d-flex justify-content-end ">
+                            <span class="me-auto">@item.Ad</span>
+                            <a>
+                                @(ViewBag.Menu != null ? ((Menu)ViewBag.Menu).Icecekler.Count(x => x.Ad == item.Ad) : "0")
+                            </a>
+                            <a asp-action="MenuyeIcecekEkle" asp-route-id="@item.Id" asp-route-menuId="@Model.Id" class="ms-4"><i class="btn btn-primary fa-solid fa-plus"></i></a>
+                            <a><i class="btn btn-primary ms-2 fa-solid fa-minus"></i></a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="row justify-content-around mb-4">
+
+                <div class="col-5 border shadow rounded p-3">
+                    <h5 class="my-4">Soslar</h5>
+
+                    @foreach (var item in db.Soslar)
+                    {
+                        <div class="mb-2 px-2 border d-flex justify-content-end ">
+                            <span class="me-auto">@item.Ad</span>
+                            <a>
+                                @(ViewBag.Menu != null ? ((Menu)ViewBag.Menu).Soslar.Count(x => x.Ad == item.Ad) : "0")
+                            </a>
+                            <a asp-action="MenuyeSosEkle" asp-route-id="@item.Id" asp-route-menuId="@Model.Id" class="ms-4"><i class="btn btn-primary fa-solid fa-plus"></i></a>
+                            <a><i class="btn btn-primary ms-2 fa-solid fa-minus"></i></a>
+                        </div>
+                    }
+                </div>
+
+                <div class="col-5 border shadow rounded p-3">
+                    <h5 class="my-4">Ekstralar</h5>
+
+                    @foreach (var item in db.Ekstralar)
+                    {
+                        <div class="mb-2 px-2 border d-flex justify-content-end ">
+                            <span class="me-auto">@item.Ad</span>
+                            <a>
+                                @(ViewBag.Menu != null ? ((Menu)ViewBag.Menu).Ekstralar.Count(x => x.Ad == item.Ad) : "0")
+                            </a>
+                            <a asp-action="MenuyeEkstraEkle" asp-route-id="@item.Id" asp-route-menuId="@Model.Id" class="ms-4"><i class="btn btn-primary fa-solid fa-plus"></i></a>
+                            <a><i class="btn btn-primary ms-2 fa-solid fa-minus"></i></a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Resim"></label>
+                <input asp-for="Resim" type="file" class="form-control" />
+                <span asp-validation-for="Resim" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary">Ekle</button>
+        </form>
+    </div>
+</div>

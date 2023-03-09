@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HamburgerProje.Data.Migrations
+namespace HamburgerProje.Migrations
 {
     public partial class ilk : Migration
     {
@@ -59,7 +59,7 @@ namespace HamburgerProje.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     Adet = table.Column<int>(type: "int", nullable: false),
                     Resim = table.Column<string>(type: "nvarchar(max)", nullable: true)
